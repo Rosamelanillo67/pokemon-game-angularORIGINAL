@@ -24,6 +24,11 @@ export class PokemonViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if(this.url != "assets/pikachu-triste.gif"){
+      if(this.url.split("https").length===3){
+        this.url = "https"+this.url.split("https")[2];
+      }
+    }
   }
 
 }

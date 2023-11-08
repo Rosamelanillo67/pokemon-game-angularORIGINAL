@@ -9,7 +9,7 @@ import { getRandomItem, removeRandomItem } from 'src/app/helpers/random.helper';
   providedIn: 'root'
 })
 export class PokemonService {
-  
+
   private url: string = environment.pokeApiUrl;
 
   constructor(
