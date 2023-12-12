@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@adobe/css-tools": "^4.3.2",
     "@angular/animations": "^14.3.0",
     "@angular/cdk": "^14.2.7",
     "@angular/common": "^14.3.0",
