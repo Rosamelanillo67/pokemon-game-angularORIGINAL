@@ -15,20 +15,29 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PokemonViewComponent implements OnInit {
 
-  @Input() url: string = '';
-  @Input() show: boolean = true;
-  @Input() width: number = 0;
-  @Input() height: number = 0;
-  @Input() adjust: boolean = false;
+  @Input() url: string | undefined;
+  @Input() show: boolean | undefined;
+  @Input() width: number | undefined;
+  @Input() height: number | undefined;
+  @Input() adjust: boolean | undefined;
 
-  constructor() { }
+  private isOriginalSize: boolean = true;
 
-  ngOnInit(): void {
-    if(this.url != "assets/pikachu-triste.gif"){
-      if(this.url.split("https").length===3){
-        this.url = "https"+this.url.split("https")[2];
-      }
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  onImageDoubleClick(event: any): void {
+    const imageElement = event.target;
+    if (this.isOriginalSize) {
+      imageElement.style.backgroundColor = 'red';
+      imageElement.style.width = '100px';
+      imageElement.style.height = '100px';
+    } else {
+      imageElement.style.backgroundColor = 'white';
+      imageElement.style.width = `${this.width}px`;
+      imageElement.style.height = `${this.height}px`;
     }
+    this.isOriginalSize = !this.isOriginalSize;
   }
-
 }

@@ -3,6 +3,7 @@ import { getRandomItem } from 'src/app/helpers/random.helper';
 import { Pokemon } from '../../interfaces/pokemon.interface';
 import { PlayerService } from '../../services/player.service';
 import { PokemonService } from '../../services/pokemon.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -10,6 +11,25 @@ import { PokemonService } from '../../services/pokemon.service';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
+  jugador: string = '';
+  puntos: number = 0;
+
+  constructor(
+    private playerService: PlayerService,
+    private pokemonService: PokemonService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.playerService.resetGame();
+    this.newGame();
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras.state) {
+      const state = navigation.extras.state as { jugador: string, puntos: number };
+      this.jugador = state.jugador;
+      this.puntos = state.puntos;
+    }
+  }
 
   loaded: boolean = false;
   private _selected: boolean = false;
@@ -20,7 +40,7 @@ export class GameComponent implements OnInit {
   get score(): number {
     return this.playerService.score;
   }
-  
+
   get hearts(): Array<any> {
     return Array(this.playerService.lifes);
   }
@@ -43,17 +63,7 @@ export class GameComponent implements OnInit {
   }
 
   get pokemonName(): string {
-    return this._selected? this._pokemon.name : 'undefined';
-  }
-
-  constructor(
-    private playerService: PlayerService,
-    private pokemonService: PokemonService
-  ) { }
-
-  ngOnInit(): void {
-    this.playerService.resetGame();
-    this.newGame();
+    return this._selected ? this._pokemon.name : 'undefined';
   }
 
   onSelect(pokemonName: string) {
@@ -68,12 +78,10 @@ export class GameComponent implements OnInit {
       this.playerService.decreaseLifes();
       console.log('incorrect');
     }
-    
   }
 
-  // this function es execute every time that user click in next game
+  // this function is executed every time the user clicks on next game
   async newGame() {
-
     this.loaded = false;
     this._selected = false;
     this._pokemons = await this.pokemonService.getRandomPokemons(4).catch(error => {
@@ -88,5 +96,4 @@ export class GameComponent implements OnInit {
       this.loaded = true;
     }
   }
-
 }

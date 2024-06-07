@@ -2,8 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home.component';
+import { IniciarSessioFraderaComponent } from './pages/iniciar-sessio-fradera/iniciar-sessio-fradera.component';
+import { GameComponent } from './game/pages/game/game.component';
 
 const routes: Routes = [
+  { path: 'issesiofradera', component: IniciarSessioFraderaComponent },
+  { path: 'game', component: GameComponent },
   {
     path: 'home',
     component: HomeComponent
