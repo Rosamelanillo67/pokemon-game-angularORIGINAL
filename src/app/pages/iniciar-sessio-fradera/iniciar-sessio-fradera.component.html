@@ -1,0 +1,11 @@
+<form (submit)="iniciarJuego()">
+  <div>
+    <label for="jugador">Jugador:</label>
+    <input type="text" [(ngModel)]="jugador" name="jugador" required>
+  </div>
+  <div>
+    <label for="puntos">Puntos:</label>
+    <input type="number" [(ngModel)]="puntos" name="puntos" required min="0">
+  </div>
+  <button type="submit">Jugar</button>
+</form>
